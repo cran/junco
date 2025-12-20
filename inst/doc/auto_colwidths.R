@@ -5,8 +5,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-# TODO change to pharmaverse data to parmaversejnj versions
-
 ## -----------------------------------------------------------------------------
 library(junco)
 
@@ -84,9 +82,9 @@ formatters::page_lcpp(fontspec = fspec_times)$cpp
 ## -----------------------------------------------------------------------------
 library(rlistings)
 
-adae <- pharmaverseadam::adae
+adae <- pharmaverseadamjnj::adae
 adae$AEOUT <- gsub("/", " / ", adae$AEOUT)
-adsl <- pharmaverseadam::adsl
+adsl <- pharmaverseadamjnj::adsl
 
 adsl <- adsl[, c("USUBJID", setdiff(names(adsl), names(adae)))]
 

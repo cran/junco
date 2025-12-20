@@ -1,7 +1,7 @@
-# junco
+# junco <a href='https://github.com/johnsonandjohnson/junco'><img src="man/figures/logo.png" align="right" width="200"/></a>
 
 <!-- start badges -->
-[![Check 🛠](https://github.com/johnsonandjohnson/junco/actions/workflows/check.yaml/badge.svg)](https://github.com/johnsonandjohnson/junco/actions/workflows/check.yaml)
+[![Check 🛠](https://github.com/johnsonandjohnson/junco/actions/workflows/inspect.yaml/badge.svg)](https://johnsonandjohnson.github.io/junco/unit-test-report-non-cran/)
 [![Docs 📚](https://github.com/johnsonandjohnson/junco/actions/workflows/pkgdown.yaml/badge.svg)](https://johnsonandjohnson.github.io/junco/)
 [![Code Coverage 📔](https://raw.githubusercontent.com/johnsonandjohnson/junco/refs/heads/gh-pages/_xml_coverage_reports/badge.svg)](https://johnsonandjohnson.github.io/junco/_xml_coverage_reports/coverage.html)
 
@@ -37,11 +37,17 @@ The package provides a range of functionality, such as:
 
 ## Installation
 
-You can install the development version of junco from [GitHub](https://github.com/johnsonandjohnson/junco) with:
+Either you can install the stable CRAN version
 
 ```r
-# install.packages("remotes")
-remotes::install_github("johnsonandjohnson/junco")
+install.packages("junco") #CRAN Release
+```
+
+Or you can install the development version from GitHub:
+
+```r
+require('remotes')
+remotes::install_github("johnsonandjohnson/junco", ref = "dev") #or for the rolling dev release
 ```
 
 ## Usage
