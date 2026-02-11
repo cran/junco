@@ -25,6 +25,8 @@ if(!dir.exists(out_dir)) {
   dir.create(out_dir)
 }
 
+NOT_CRAN <- !testthat:::on_cran()
+
 ## ----orientation_rtf----------------------------------------------------------
 library(junco)
 
@@ -112,15 +114,17 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/exampleorientation"),
-             orientation = "landscape")
 
-## ----orientation_docx---------------------------------------------------------
-export_as_docx_j(result,
-                tblid = "exampleorientation",
-                output_dir = out_dir,
-                orientation = "landscape")
+## ----orientation_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE------
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/exampleorientation"),
+#              orientation = "landscape")
+
+## ----orientation_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE-----
+# export_as_docx_j(result,
+#                 tblid = "exampleorientation",
+#                 output_dir = out_dir,
+#                 orientation = "landscape")
 
 ## ----orientation_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "exampleorientation", orientation = "landscape")
@@ -212,15 +216,18 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplefontsize"),
-             fontspec = formatters::font_spec("Times", 8, 1.2))
 
-## ----fontsize_docx------------------------------------------------------------
-export_as_docx_j(result,
-                tblid = "examplefontsize",
-                output_dir = out_dir,
-                theme = theme_docx_default_j(font = "Times New Roman", font_size = 8L))
+## ----fontsize_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE---------
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplefontsize"),
+#              fontspec = formatters::font_spec("Times", 8, 1.2))
+# 
+
+## ----fontsize_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE--------
+# export_as_docx_j(result,
+#                 tblid = "examplefontsize",
+#                 output_dir = out_dir,
+#                 theme = theme_docx_default_j(font = "Times New Roman", font_size = 8L))
 
 ## ----fontsize_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplefontsize", fontspec = formatters::font_spec("Times", 8, 1.2))
@@ -412,9 +419,11 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplespanningheader1"),
-             orientation = "landscape")
+
+## ----spanning_header_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplespanningheader1"),
+#              orientation = "landscape")
 
 ## ----spanning_header_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplespanningheader1", orientation = "landscape")
@@ -545,9 +554,11 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplecombinedcolumn1"),
-             orientation = "landscape")
+
+## ----combined_column1_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplecombinedcolumn1"),
+#              orientation = "landscape")
 
 ## ----combined_column_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplecombinedcolumn1", orientation = "landscape")
@@ -689,9 +700,11 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplecombinedcolumn2"),
-             orientation = "landscape")
+
+## ----combined_column2_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplecombinedcolumn2"),
+#              orientation = "landscape")
 
 ## ----improved_combined_column_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplecombinedcolumn2", orientation = "landscape")
@@ -746,9 +759,11 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/newlinetable"),
-             orientation = "landscape")
+
+## ----newline_table_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/newlinetable"),
+#              orientation = "landscape")
 
 ## ----newline_table_docx-------------------------------------------------------
 library(junco)
@@ -783,11 +798,12 @@ lyt <- basic_table(
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
 
-export_as_docx_j(result,
-                tblid = "examplenewline",
-                output_dir = out_dir,
-                orientation = "landscape")
 
+## ----newline_table_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# export_as_docx_j(result,
+#                 tblid = "examplenewline",
+#                 output_dir = out_dir,
+#                 orientation = "landscape")
 
 ## ----newline_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "newlinetable", orientation = "landscape")
@@ -820,9 +836,11 @@ result <- rlistings::as_listing(
   disp_cols = "HEIGHT"
 )
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplelistingnewline2"),
-             orientation = "landscape")
+
+## ----newline_listing_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplelistingnewline2"),
+#              orientation = "landscape")
 
 ## ----newline_listing_docx-----------------------------------------------------
 library(junco)
@@ -854,10 +872,11 @@ result <- rlistings::as_listing(
 result <- set_titles(result, titles)
 
 
-export_as_docx_j(result,
-                tblid = "examplelistingnewline2",
-                output_dir = out_dir,
-                orientation = "landscape")
+## ----newline_listing_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# export_as_docx_j(result,
+#                 tblid = "examplelistingnewline2",
+#                 output_dir = out_dir,
+#                 orientation = "landscape")
 
 ## ----newline_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplelistingnewline2", orientation = "landscape")
@@ -901,9 +920,11 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/bordertable"),
-             orientation = "landscape")
+
+## ----border_matrix_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/bordertable"),
+#              orientation = "landscape")
 
 ## ----border_matrix_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "bordertable", orientation = "landscape")
@@ -916,18 +937,18 @@ header_border
 header_border[1, 4] <- 4
 header_border
 
-## ----custom_border_matrix-----------------------------------------------------
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/custombordertable"),
-             orientation = "landscape",
-             border_mat = header_border)
+## ----custom_border_matrix_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/custombordertable"),
+#              orientation = "landscape",
+#              border_mat = header_border)
 
-## ----custom_border_matrix_docx------------------------------------------------
-export_as_docx_j(result,
-                tblid = "custombordertable",
-                output_dir = out_dir,
-                orientation = "landscape",
-                border_mat = header_border)
+## ----custom_border_matrix_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# export_as_docx_j(result,
+#                 tblid = "custombordertable",
+#                 output_dir = out_dir,
+#                 orientation = "landscape",
+#                 border_mat = header_border)
 
 ## ----custom_border_matrix_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "custombordertable", orientation = "landscape", border_mat = header_border)
@@ -1001,10 +1022,12 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/superscripttable"),
-             orientation = "landscape",
-             markup_df = dps_markup_df)
+
+## ----superscript_table_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/superscripttable"),
+#              orientation = "landscape",
+#              markup_df = dps_markup_df)
 
 ## ----default_markup_docx2-----------------------------------------------------
 library(tibble)
@@ -1054,11 +1077,13 @@ lyt <- basic_table(
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
 
-export_as_docx_j(result,
-                tblid = "superscripttable",
-                output_dir = out_dir,
-                orientation = "landscape",
-                markup_df = docx_markup_df)
+
+## ----superscript_table_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# export_as_docx_j(result,
+#                 tblid = "superscripttable",
+#                 output_dir = out_dir,
+#                 orientation = "landscape",
+#                 markup_df = docx_markup_df)
 
 ## ----superscript_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "superscripttable", orientation = "landscape",  markup_df = dps_markup_df)
@@ -1091,9 +1116,11 @@ result <- rlistings::as_listing(
   disp_cols = "HEIGHT"
 )
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplelistingsuperscript2"),
-             orientation = "landscape")
+
+## ----superscript_listing_rtf_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplelistingsuperscript2"),
+#              orientation = "landscape")
 
 ## ----default_markup_docx------------------------------------------------------
 library(tibble)
@@ -1141,11 +1168,13 @@ result <- rlistings::as_listing(
 )
 result <- set_titles(result, titles)
 
-export_as_docx_j(result,
-                tblid = "examplelistingsuperscript2",
-                output_dir = out_dir,
-                orientation = "landscape",
-                markup_df = docx_markup_df)
+
+## ----superscript_listing_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# export_as_docx_j(result,
+#                 tblid = "examplelistingsuperscript2",
+#                 output_dir = out_dir,
+#                 orientation = "landscape",
+#                 markup_df = docx_markup_df)
 
 ## ----superscript_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result, "examplelistingsuperscript2", orientation = "landscape",  markup_df = dps_markup_df)
@@ -1323,9 +1352,11 @@ if (length(adae$TRTEMFL) != 0) {
 # Convert to tbl file and output table
 ################################################################################
 
-tt_to_tlgrtf(string_map = string_map, tt = result,
-             file = paste0(out_dir, "/aetablemultipledocs1"), orientation = "landscape"
-)
+
+## ----multiple_docs_table1_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(string_map = string_map, tt = result,
+#              file = paste0(out_dir, "/aetablemultipledocs1"), orientation = "landscape"
+# )
 
 ## ----multiple_docs_table1_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs1", orientation = "landscape", paginate= TRUE)
@@ -1339,10 +1370,12 @@ knitr::asis_output("<br><br>")
 # Convert to tbl file and output table
 ################################################################################
 
-tt_to_tlgrtf(string_map = string_map, tt = result,
-             file = paste0(out_dir, "/aetablemultipledocs2"), orientation = "landscape",
-             nosplitin = list(cols = c(trtvar))
-)
+
+## ----multiple_docs_table2_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(string_map = string_map, tt = result,
+#              file = paste0(out_dir, "/aetablemultipledocs2"), orientation = "landscape",
+#              nosplitin = list(cols = c(trtvar))
+# )
 
 ## ----multiple_docs_table2_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs2", orientation = "landscape",
@@ -1355,16 +1388,12 @@ x[[3]]
 knitr::asis_output("<br><br>")
 
 
-## ----multiple_docs_table3-----------------------------------------------------
-################################################################################
-# Convert to tbl file and output table
-################################################################################
-
-tt_to_tlgrtf(string_map = string_map, tt = result,
-             file = paste0(out_dir, "/aetablemultipledocs3"), orientation = "landscape",
-             nosplitin = list(cols = c(trtvar)),
-             combined_rtf = TRUE
-)
+## ----multiple_docs_table3_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(string_map = string_map, tt = result,
+#              file = paste0(out_dir, "/aetablemultipledocs3"), orientation = "landscape",
+#              nosplitin = list(cols = c(trtvar)),
+#              combined_rtf = TRUE
+# )
 
 ## ----multiple_docs_table3_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs3", orientation = "landscape",
@@ -1463,8 +1492,10 @@ lyt <- basic_table(
 
 result <- build_table(lyt, adsl)
 result <- set_titles(result, titles)
-tt_to_tlgrtf(result,
-             file = paste0(out_dir, "/examplepagebreak"))
+
+## ----page_break_table_export, eval=NOT_CRAN, message=FALSE, warning=FALSE-----
+# tt_to_tlgrtf(result,
+#              file = paste0(out_dir, "/examplepagebreak"))
 
 ## ----page_break_table_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 male <- result[1:5, keep_titles = TRUE, keep_footers = FALSE]
@@ -1508,19 +1539,19 @@ keep <- result$TRT01A %in% c("Example Drug 5 mg", "Example Drug 10 mg")
 
 result1 <- result[keep, ]
 
-tt_to_tlgrtf(result1,
-  file = paste0(out_dir, "/examplelistingmultiplefilesPART1OF2"),
-  orientation = "landscape"
-)
+## ----split_listing_part1_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result1,
+#   file = paste0(out_dir, "/examplelistingmultiplefilesPART1OF2"),
+#   orientation = "landscape"
+# )
 
-
-## ----split_listing_docx_part1-------------------------------------------------
-
-export_as_docx_j(result1,
-  tblid = "examplelistingmultiplefilesPART1OF2",
-  output_dir = out_dir,
-  orientation = "landscape"
-)
+## ----split_listing_docx_part1_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# 
+# export_as_docx_j(result1,
+#   tblid = "examplelistingmultiplefilesPART1OF2",
+#   output_dir = out_dir,
+#   orientation = "landscape"
+# )
 
 ## ----split_listing_part1_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result1, "examplelistingmultiplefilesPART1OF2",
@@ -1532,19 +1563,19 @@ keep <- result$TRT01A %in% c("Example Drug 20 mg", "Placebo")
 
 result2 <- result[keep, ]
 
-tt_to_tlgrtf(result2,
-  file = paste0(out_dir, "/examplelistingmultiplefilesPART2OF2"),
-  orientation = "landscape"
-)
+## ----split_listing_part2_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# tt_to_tlgrtf(result2,
+#   file = paste0(out_dir, "/examplelistingmultiplefilesPART2OF2"),
+#   orientation = "landscape"
+# )
 
-
-## ----split_listing_docx_part2-------------------------------------------------
-
-export_as_docx_j(result2,
-  tblid = "examplelistingmultiplefilesPART2OF2",
-  output_dir = out_dir,
-  orientation = "landscape"
-)
+## ----split_listing_docx_part2_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
+# 
+# export_as_docx_j(result2,
+#   tblid = "examplelistingmultiplefilesPART2OF2",
+#   output_dir = out_dir,
+#   orientation = "landscape"
+# )
 
 ## ----split_listing_part2_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
 tt_to_flextable_j(result2, "examplelistingmultiplefilesPART2OF2",
