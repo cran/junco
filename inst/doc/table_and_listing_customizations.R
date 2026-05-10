@@ -121,7 +121,7 @@ result <- set_titles(result, titles)
 #              orientation = "landscape")
 
 ## ----orientation_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE-----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "exampleorientation",
 #                 output_dir = out_dir,
 #                 orientation = "landscape")
@@ -224,7 +224,7 @@ result <- set_titles(result, titles)
 # 
 
 ## ----fontsize_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE--------
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "examplefontsize",
 #                 output_dir = out_dir,
 #                 theme = theme_docx_default_j(font = "Times New Roman", font_size = 8L))
@@ -765,13 +765,17 @@ result <- set_titles(result, titles)
 #              file = paste0(out_dir, "/newlinetable"),
 #              orientation = "landscape")
 
+## ----string_map_newline-------------------------------------------------------
+string_map_newline <- rbind(default_str_map, c("\\line", "\n"))
+string_map_newline
+
 ## ----newline_table_docx-------------------------------------------------------
 library(junco)
 library(rtables)
 
-adsl <- data.frame(TRT01A = c("Example Drug\n 5 mg",
-                              "Example Drug\n 10 mg",
-                              "Example Drug\n 20 mg",
+adsl <- data.frame(TRT01A = c("Example Drug\\line5 mg",
+                              "Example Drug\\line10 mg",
+                              "Example Drug\\line20 mg",
                               "Placebo"),
                    SUBJECT = c("1",
                                "2",
@@ -800,13 +804,15 @@ result <- set_titles(result, titles)
 
 
 ## ----newline_table_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "examplenewline",
 #                 output_dir = out_dir,
-#                 orientation = "landscape")
+#                 orientation = "landscape",
+#                 string_map = string_map_newline)
 
 ## ----newline_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "newlinetable", orientation = "landscape")
+tt_to_flextable_j(result, "newlinetable", orientation = "landscape",
+                  string_map = string_map_newline)
 
 ## ----newline_listing_rtf------------------------------------------------------
 library(junco)
@@ -860,7 +866,7 @@ adsl <- data.frame(TRT01A = c("Example Drug 5 mg",
                               64
                    )
 ) |>
-  formatters::var_relabel(TRT01A = "Actual Treatment for\n Period 01") |>
+  formatters::var_relabel(TRT01A = "Actual Treatment for\\linePeriod 01") |>
   formatters::var_relabel(SUBJECT = "Subject") |>
   formatters::var_relabel(HEIGHT = "Height (in)")
 
@@ -873,13 +879,15 @@ result <- set_titles(result, titles)
 
 
 ## ----newline_listing_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "examplelistingnewline2",
 #                 output_dir = out_dir,
-#                 orientation = "landscape")
+#                 orientation = "landscape",
+#                 string_map = string_map_newline)
 
 ## ----newline_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplelistingnewline2", orientation = "landscape")
+tt_to_flextable_j(result, "examplelistingnewline2", orientation = "landscape",
+                  string_map = string_map_newline)
 
 ## ----border_matrix------------------------------------------------------------
 library(junco)
@@ -944,7 +952,7 @@ header_border
 #              border_mat = header_border)
 
 ## ----custom_border_matrix_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "custombordertable",
 #                 output_dir = out_dir,
 #                 orientation = "landscape",
@@ -1079,14 +1087,14 @@ result <- set_titles(result, titles)
 
 
 ## ----superscript_table_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "superscripttable",
 #                 output_dir = out_dir,
 #                 orientation = "landscape",
-#                 markup_df = docx_markup_df)
+#                 markup_df_docx = docx_markup_df)
 
 ## ----superscript_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "superscripttable", orientation = "landscape",  markup_df = dps_markup_df)
+tt_to_flextable_j(result, "superscripttable", orientation = "landscape",  markup_df_docx = docx_markup_df)
 
 ## ----superscript_listing_rtf--------------------------------------------------
 library(junco)
@@ -1170,14 +1178,14 @@ result <- set_titles(result, titles)
 
 
 ## ----superscript_listing_docx_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
-# export_as_docx_j(result,
+# export_TLG_as_docx(result,
 #                 tblid = "examplelistingsuperscript2",
 #                 output_dir = out_dir,
 #                 orientation = "landscape",
-#                 markup_df = docx_markup_df)
+#                 markup_df_docx = docx_markup_df)
 
 ## ----superscript_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplelistingsuperscript2", orientation = "landscape",  markup_df = dps_markup_df)
+tt_to_flextable_j(result, "examplelistingsuperscript2", orientation = "landscape",  markup_df_docx = docx_markup_df)
 
 ## ----multiple_docs_data_prep--------------------------------------------------
 library(tern)
@@ -1547,7 +1555,7 @@ result1 <- result[keep, ]
 
 ## ----split_listing_docx_part1_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
 # 
-# export_as_docx_j(result1,
+# export_TLG_as_docx(result1,
 #   tblid = "examplelistingmultiplefilesPART1OF2",
 #   output_dir = out_dir,
 #   orientation = "landscape"
@@ -1571,7 +1579,7 @@ result2 <- result[keep, ]
 
 ## ----split_listing_docx_part2_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
 # 
-# export_as_docx_j(result2,
+# export_TLG_as_docx(result2,
 #   tblid = "examplelistingmultiplefilesPART2OF2",
 #   output_dir = out_dir,
 #   orientation = "landscape"

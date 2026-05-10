@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="C&amp;SP Methodology Team" />
+
+
+<title>ANCOVA with Combined Treatment Groups</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">ANCOVA with Combined Treatment Groups</h1>
+<h4 class="author">C&amp;SP Methodology Team</h4>
+
+
+
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p>This vignette provides an high-level illustration of <strong>ANCOVA
+with combined treatment groups</strong> in <code>junco</code>.<br />
+The main purpose is to highlight the ability to construct tables with
+combined groups using <code>junco</code> function
+<code>a_summarize_ancova_j()</code>.<br />
+The various options such as weighting strategies, interaction models,
+and alternative estimands will be described.</p>
+</div>
+<div id="clinical-context" class="section level1">
+<h1>Clinical Context</h1>
+<p>ANCOVA is commonly used for covariate-adjusted analyses of change
+from baseline in clinical trials. Regulatory tables often require
+pooling of treatment arms while preserving the original estimand.</p>
+</div>
+<div id="example-dataset" class="section level1">
+<h1>Example Dataset</h1>
+<p>The dataset used as an example is a small dataset with simulated
+values for <code>BASE</code> and <code>CHG</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(rtables)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;rtables&#39; was built under R version 4.5.2</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;formatters&#39; was built under R version 4.5.2</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(junco)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>adchg <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="at">USUBJID =</span> <span class="fu">sprintf</span>(<span class="st">&quot;SUBJ-%03d&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="at">TRT01A =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Low Dose&quot;</span>, <span class="st">&quot;High Dose&quot;</span>), <span class="at">length.out =</span> <span class="dv">300</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="at">REGION =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;EU&quot;</span>, <span class="st">&quot;US&quot;</span>), <span class="dv">300</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>))),</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">BASE =</span> <span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="dv">50</span>, <span class="dv">10</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="at">CHG  =</span> <span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="dv">0</span>, <span class="dv">8</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="combined-column-strategy" class="section level1">
+<h1>Combined Column Strategy</h1>
+<p>A combined treatment column can be added in an <code>rtables</code>
+layout, by utilizing a <code>combodf</code> dataframe.<br />
+As seen further in this document, adding
+<code>split_fun = add_combo_levels(combodf)</code> in
+<code>split_cols_by</code> call, will result in a combined treatment
+column in the final table.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>combodf <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="sc">~</span>valname,   <span class="sc">~</span>label,    <span class="sc">~</span>levelcombo,                     <span class="sc">~</span>exargs,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="st">&quot;ACTIVE&quot;</span>,   <span class="st">&quot;Active&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Low Dose&quot;</span>, <span class="st">&quot;High Dose&quot;</span>), <span class="fu">list</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="ancova-model" class="section level1">
+<h1>ANCOVA Model</h1>
+<p>The ANCOVA model used here is:</p>
+<pre><code>CHG ~ TRT01A + BASE + REGION</code></pre>
+<p>The model is fitted once using the original randomized treatment
+variable, for all columns, including the combined column.</p>
+</div>
+<div id="least-squares-means-approach" class="section level1">
+<h1>Least-squares means approach</h1>
+<p>The recommended approach for dealing with a combined treatment group
+column in an ANCOVA table, is to derive the estimates for that column as
+contrasts (least-squares means) from the linear ANCOVA model.<br />
+This can be achieved by specifying the argument
+<code>method_combo = &quot;contrasts&quot;</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>lyt <span class="ot">&lt;-</span> <span class="fu">basic_table</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">split_cols_by</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="st">&quot;TRT01A&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="at">ref_group =</span> <span class="st">&quot;Placebo&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="at">split_fun =</span> <span class="fu">add_combo_levels</span>(combodf)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">add_colcounts</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="fu">analyze</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="at">vars =</span> <span class="st">&quot;CHG&quot;</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="at">afun =</span> a_summarize_ancova_j,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="at">var_labels =</span> <span class="st">&quot;Change from Baseline&quot;</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    <span class="at">extra_args =</span> <span class="fu">list</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>      <span class="at">variables =</span> <span class="fu">list</span>(<span class="at">arm =</span> <span class="st">&quot;TRT01A&quot;</span>, <span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&quot;BASE&quot;</span>, <span class="st">&quot;REGION&quot;</span>)),</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      <span class="at">ref_path =</span> <span class="fu">c</span>(<span class="st">&quot;TRT01A&quot;</span>, <span class="st">&quot;Placebo&quot;</span>),</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>      <span class="at">method_combo =</span> <span class="st">&quot;contrasts&quot;</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>      <span class="at">weights_combo =</span> <span class="st">&quot;equal&quot;</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>      <span class="at">weights_emmeans =</span> <span class="st">&quot;equal&quot;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>      <span class="at">conf_level =</span> <span class="fl">0.95</span>      </span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>    )</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  )</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="fu">build_table</span>(lyt, adchg)</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt;                                              High Dose             Low Dose               Placebo               Active       </span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt;                                               (N=100)               (N=100)               (N=100)               (N=200)      </span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; n                                               100                   100                   100                   200        </span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; Mean (SD)                                  -0.76 (7.541)         -0.12 (7.490)         -1.16 (6.510)         -0.44 (7.504)   </span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; Median                                         -0.27                 -0.13                 -1.60                 -0.18       </span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; Min, max                                    -22.1, 16.8           -15.2, 15.6           -16.2, 17.8           -22.1, 16.8    </span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; 25% and 75%-ile                             -6.51, 4.08           -5.82, 4.25           -5.68, 2.48           -6.44, 4.15    </span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; Adjusted Mean (SE)                         -0.73 (0.72)          -0.03 (0.72)          -0.97 (0.73)          -0.38 (0.51)    </span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; Adjusted Mean (95% CI)                  -0.73 (-2.15, 0.68)   -0.03 (-1.45, 1.40)   -0.97 (-2.41, 0.47)   -0.38 (-1.38, 0.63)</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; Difference in Adjusted Means (95% CI)   0.24 (-1.78, 2.26)    0.95 (-1.06, 2.95)                          0.59 (-1.15, 2.34) </span></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt;   p-value                                      0.815                 0.354                                       0.504</span></span></code></pre></div>
+<div id="weighting-strategies" class="section level2">
+<h2>Weighting Strategies</h2>
+<p>Note the argument <code>weights_combo</code> in the above layout
+definition. When defining contrasts in a linear model, weights can
+specified to use in averaging predictions. See
+<code>?emmeans::emmeans()</code> for more details.</p>
+<p>The following 3 weight scenarios are available for
+<code>weights_combo</code>:</p>
+<ul>
+<li><code>equal</code>: equal contribution of arms</li>
+<li><code>proportional</code>: weighted by observed sample size</li>
+<li><code>proportional_marginal</code>: marginal weights across
+interaction strata</li>
+</ul>
+<p>If no interaction term is included in the model, the choices
+<code>proportional</code> and <code>proportional_marginal</code> lead to
+the same weights (by observed sample size), reducing to 2 options
+only.<br />
+While, if an interaction, for example a term like
+<code>TRT01A * REGION</code> is included, <code>proportional</code> and
+<code>proportional_marginal</code> are slightly different, with
+<code>proportional</code> according to the proportions observed in the
+interaction strata.</p>
+</div>
+</div>
+<div id="collapsing-treatment-arms" class="section level1">
+<h1>Collapsing Treatment Arms</h1>
+<p>The option <code>method_combo = &quot;collapse&quot;</code> is available as
+alternative approach, mainly as a quick verification method, and for
+consistency reason with another internal system.<br />
+In this scenario, the ANCOVA model is re-fitted on pooled arms and as
+such changes the estimand.<br />
+While it is available as an option, our recommendation is to use the
+<code>contrasts</code> approach, and only utilize
+<code>method_combo = &quot;collapse&quot;</code> when explicitly specified in the
+SAP.</p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<ul>
+<li>The <code>method_combo = &quot;contrasts&quot;</code> approach is aligned with
+<code>emmeans</code> theory</li>
+<li>Combined LS means and differences are implemented as linear
+contrasts</li>
+<li>Full covariance propagation is preserved</li>
+<li>Interaction models require explicit decisions on within- and
+across-stratum weighting</li>
+</ul>
+<p>See also [junco::a_summarize_ancova_j()].</p>
+</div>
+<div id="statistical-appendix-emmeans-based-estimation" class="section level1">
+<h1>Statistical Appendix: emmeans-based Estimation</h1>
+<div id="notation" class="section level2">
+<h2>Notation</h2>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(\hat{\mu}_k\)</span> denote the LS mean
+for treatment arm <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(\mathbf{\hat{\mu}} = (\hat{\mu}_1,
+\ldots, \hat{\mu}_K)^T\)</span></li>
+<li><span class="math inline">\(\mathbf{V} =
+\mathrm{Var}(\mathbf{\hat{\mu}})\)</span></li>
+</ul>
+<p>All quantities are obtained from the fitted ANCOVA model.</p>
+<hr />
+</div>
+<div id="a.-combined-ls-means" class="section level2">
+<h2>A. Combined LS Means</h2>
+<p>A combined treatment LS mean for a set of arms <span class="math inline">\(C\)</span> is defined as:</p>
+<p><span class="math display">\[
+\hat{\mu}_{C} = \sum_{k \in C} w_k \, \hat{\mu}_k ,
+\qquad \sum_{k \in C} w_k = 1
+\]</span></p>
+<p>where <span class="math inline">\(w_k\)</span> are user-specified
+weights (e.g. equal or proportional).</p>
+<div id="variance" class="section level3">
+<h3>Variance</h3>
+<p>The variance of the combined LS mean is:</p>
+<p><span class="math display">\[
+\mathrm{Var}(\hat{\mu}_{C}) = \mathbf{w}^T \, \mathbf{V} \, \mathbf{w}
+\]</span></p>
+<p>This corresponds exactly to a linear contrast implemented via
+<code>emmeans::contrast()</code>.</p>
+<hr />
+</div>
+</div>
+<div id="b.-contrasts-between-treatment-groups" class="section level2">
+<h2>B. Contrasts Between Treatment Groups</h2>
+<div id="simple-treatment-differences" class="section level3">
+<h3>Simple Treatment Differences</h3>
+<p>The estimated difference between two individual treatment arms <span class="math inline">\(k\)</span> and <span class="math inline">\(r\)</span> (e.g. Active vs Placebo) is defined as
+the contrast:</p>
+<p><span class="math display">\[
+\hat{\delta}_{k,r} = \hat{\mu}_k - \hat{\mu}_r
+\]</span></p>
+<p>with variance:</p>
+<p><span class="math display">\[
+\mathrm{Var}(\hat{\delta}_{k,r}) = \mathrm{Var}(\hat{\mu}_k)
++ \mathrm{Var}(\hat{\mu}_r)
+- 2 \, \mathrm{Cov}(\hat{\mu}_k, \hat{\mu}_r)
+\]</span></p>
+<p>This covariance term is automatically accounted for when contrasts
+are derived from the joint covariance matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
+<hr />
+</div>
+<div id="differences-involving-combined-arms" class="section level3">
+<h3>Differences Involving Combined Arms</h3>
+<p>For a combined treatment <span class="math inline">\(C\)</span>
+compared to reference arm <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[
+\hat{\delta}_{C,r} = \hat{\mu}_{C} - \hat{\mu}_r
+\]</span></p>
+<p>This can be written as a single linear contrast with weight
+vector:</p>
+<p><span class="math display">\[
+\mathbf{w}_{C,r} = (w_1, \ldots, w_K, -1)
+\]</span></p>
+<p>and variance:</p>
+<p><span class="math display">\[
+\mathrm{Var}(\hat{\delta}_{C,r}) = \mathbf{w}_{C,r}^T \, \mathbf{V} \,
+\mathbf{w}_{C,r}
+\]</span></p>
+<p>This ensures internally consistent standard errors, confidence
+intervals, and p-values for combined treatment comparisons.</p>
+<hr />
+</div>
+</div>
+<div id="c.-contrasts-in-interaction-models" class="section level2">
+<h2>C. Contrasts in Interaction Models</h2>
+<p>When the ANCOVA model includes interaction terms
+(e.g. <code>TRT01A * REGION</code>), LS means are estimated
+<strong>within each interaction stratum</strong>.</p>
+<p>In this setting:</p>
+<ul>
+<li>Treatment-specific LS means <span class="math inline">\(\hat{\mu}_{k,s}\)</span> are defined per stratum
+<span class="math inline">\(s\)</span></li>
+<li>Combined means are first formed <em>within stratum</em></li>
+<li>Pooling across strata is then applied via user-defined weights</li>
+</ul>
+<p>Formally, the combined LS mean marginal over strata is:</p>
+<p><span class="math display">\[
+\hat{\mu}_{C} = \sum_{s} \pi_s \,
+\Big( \sum_{k \in C} w_{k|s} \, \hat{\mu}_{k,s} \Big)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(w_{k|s}\)</span> are within-stratum
+treatment weights</li>
+<li><span class="math inline">\(\pi_s\)</span> are stratum-level
+weights</li>
+</ul>
+<p>The distinction between <code>weights_combo = &quot;proportional&quot;</code>
+and <code>&quot;proportional_marginal&quot;</code> determines whether <span class="math inline">\(w_{k|s}\)</span> or <span class="math inline">\(\pi_s\)</span> reflect observed sample sizes
+within or across strata.</p>
+<p>This two-stage weighting clarifies how estimands change in the
+presence of interactions and avoids implicit, undocumented
+averaging.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
