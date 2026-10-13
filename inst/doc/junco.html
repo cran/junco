@@ -1591,8 +1591,8 @@ add-on/alternative to the <code>tern</code> package, which is the first
 package available in the <code>NEST</code> framework for analysis
 functions with main focus for clinical trials. The core functionality
 for tabulation is built on the more general purpose <code>rtables</code>
-package. New users should first begin by reading the <a href="https://insightsengineering.github.io/tern/latest-tag/articles/tern.html">“Introduction
-to <code>tern</code>”</a> and <a href="https://insightsengineering.github.io/rtables/latest-release/articles/rtables.html">“Introduction
+package. New users should first begin by reading the <a href="https://pharmaverse.github.io/tern/latest-tag/articles/tern.html">“Introduction
+to <code>tern</code>”</a> and <a href="https://pharmaverse.github.io/rtables/latest-release/articles/rtables.html">“Introduction
 to <code>rtables</code>”</a> vignettes.</p>
 <p>The packages used in this vignette are:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rtables)</span>
@@ -2012,17 +2012,18 @@ of subgroup tables, which is demonstrated in below table.</p>
 <h2>Other junco features : Extra Statistics have been added to some tern
 statistical functions</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>tern<span class="sc">::</span><span class="fu">get_stats</span>(<span class="st">&quot;summarize_ancova&quot;</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;n&quot;              &quot;lsmean&quot;         &quot;lsmean_diff&quot;    &quot;lsmean_diff_ci&quot;</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; [5] &quot;pval&quot;</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>tern<span class="sc">::</span><span class="fu">get_stats</span>(<span class="st">&quot;analyze_vars_numeric&quot;</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;n&quot;               &quot;sum&quot;             &quot;mean&quot;            &quot;sd&quot;             </span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;se&quot;              &quot;mean_sd&quot;         &quot;mean_se&quot;         &quot;mean_ci&quot;        </span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;mean_sei&quot;        &quot;mean_sdi&quot;        &quot;mean_pval&quot;       &quot;median&quot;         </span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [13] &quot;mad&quot;             &quot;median_ci&quot;       &quot;quantiles&quot;       &quot;iqr&quot;            </span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; [17] &quot;range&quot;           &quot;min&quot;             &quot;max&quot;             &quot;median_range&quot;   </span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; [21] &quot;cv&quot;              &quot;geom_mean&quot;       &quot;geom_sd&quot;         &quot;geom_mean_sd&quot;   </span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; [25] &quot;geom_mean_ci&quot;    &quot;geom_cv&quot;         &quot;median_ci_3d&quot;    &quot;mean_ci_3d&quot;     </span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; [29] &quot;geom_mean_ci_3d&quot;</span></span></code></pre></div>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;n&quot;                   &quot;lsmean&quot;              &quot;lsmean_se&quot;          </span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; [4] &quot;lsmean_ci&quot;           &quot;lsmean_diff&quot;         &quot;lsmean_diff_ci&quot;     </span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; [7] &quot;lsmean_diff_with_ci&quot; &quot;pval&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>tern<span class="sc">::</span><span class="fu">get_stats</span>(<span class="st">&quot;analyze_vars_numeric&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;n&quot;               &quot;sum&quot;             &quot;mean&quot;            &quot;sd&quot;             </span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;se&quot;              &quot;mean_sd&quot;         &quot;mean_se&quot;         &quot;mean_ci&quot;        </span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;mean_sei&quot;        &quot;mean_sdi&quot;        &quot;mean_pval&quot;       &quot;median&quot;         </span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; [13] &quot;mad&quot;             &quot;median_ci&quot;       &quot;quantiles&quot;       &quot;iqr&quot;            </span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; [17] &quot;range&quot;           &quot;min&quot;             &quot;max&quot;             &quot;median_range&quot;   </span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; [21] &quot;cv&quot;              &quot;geom_mean&quot;       &quot;geom_sd&quot;         &quot;geom_mean_sd&quot;   </span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; [25] &quot;geom_mean_ci&quot;    &quot;geom_cv&quot;         &quot;median_ci_3d&quot;    &quot;mean_ci_3d&quot;     </span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; [29] &quot;geom_mean_ci_3d&quot;</span></span></code></pre></div>
 <p>In junco, we have added extra stats for</p>
 <ul>
 <li>ancova: se for lsmean, combined lsmean-CI (3d stat), combined

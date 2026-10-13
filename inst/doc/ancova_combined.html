@@ -363,9 +363,9 @@ pooling of treatment arms while preserving the original estimand.</p>
 <p>The dataset used as an example is a small dataset with simulated
 values for <code>BASE</code> and <code>CHG</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(rtables)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;rtables&#39; was built under R version 4.5.2</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;formatters&#39; was built under R version 4.5.2</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;dplyr&#39; was built under R version 4.5.2</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(rtables)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;rtables&#39; was built under R version 4.5.2</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(junco)</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">101</span>)</span>
@@ -435,7 +435,7 @@ This can be achieved by specifying the argument
 <span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; Median                                         -0.27                 -0.13                 -1.60                 -0.18       </span></span>
 <span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; Min, max                                    -22.1, 16.8           -15.2, 15.6           -16.2, 17.8           -22.1, 16.8    </span></span>
 <span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; 25% and 75%-ile                             -6.51, 4.08           -5.82, 4.25           -5.68, 2.48           -6.44, 4.15    </span></span>
-<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; Adjusted Mean (SE)                         -0.73 (0.72)          -0.03 (0.72)          -0.97 (0.73)          -0.38 (0.51)    </span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; Adjusted Mean (SE)                         -0.73 (0.720)         -0.03 (0.723)         -0.97 (0.733)         -0.38 (0.511)   </span></span>
 <span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; Adjusted Mean (95% CI)                  -0.73 (-2.15, 0.68)   -0.03 (-1.45, 1.40)   -0.97 (-2.41, 0.47)   -0.38 (-1.38, 0.63)</span></span>
 <span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; Difference in Adjusted Means (95% CI)   0.24 (-1.78, 2.26)    0.95 (-1.06, 2.95)                          0.59 (-1.15, 2.34) </span></span>
 <span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt;   p-value                                      0.815                 0.354                                       0.504</span></span></code></pre></div>

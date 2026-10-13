@@ -4,6 +4,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+NOT_CRAN <- identical(Sys.getenv("NOT_CRAN"), "true")
 
 ## -----------------------------------------------------------------------------
 library(junco)
@@ -79,81 +80,81 @@ sum(propose_column_widths(tbl3, fontspec = fspec_times))
 ## -----------------------------------------------------------------------------
 formatters::page_lcpp(fontspec = fspec_times)$cpp
 
-## -----------------------------------------------------------------------------
-library(rlistings)
+## ----eval=NOT_CRAN------------------------------------------------------------
+# library(rlistings)
+# 
+# adae <- pharmaverseadamjnj::adae
+# adae$AEOUT <- gsub("/", " / ", adae$AEOUT)
+# adsl <- pharmaverseadamjnj::adsl
+# 
+# adsl <- adsl[, c("USUBJID", setdiff(names(adsl), names(adae)))]
+# 
+# lstdat <- merge(adae, adsl, by = "USUBJID")
+# var_labels(lstdat) <- c(var_labels(adae), var_labels(adsl)[-1])
+# lstdat$demog <- with_label(paste(lstdat$RACE, lstdat$SEX, lstdat$AGE, sep = " / "), "Demographic Information")
+# 
+# lsting <- as_listing(lstdat,
+#   key_cols = c("USUBJID"),
+#   disp_cols = c("ACTARM", "COUNTRY", "demog", "AESEV", "AEBODSYS", "AEDECOD", "ASTDTM", "AENDTM", "AEOUT", "EOSSTT")
+# )
 
-adae <- pharmaverseadamjnj::adae
-adae$AEOUT <- gsub("/", " / ", adae$AEOUT)
-adsl <- pharmaverseadamjnj::adsl
+## ----eval=NOT_CRAN------------------------------------------------------------
+# demcell <- lstdat$demog[nrow(lstdat)]
+# demcell
 
-adsl <- adsl[, c("USUBJID", setdiff(names(adsl), names(adae)))]
+## ----eval=NOT_CRAN------------------------------------------------------------
+# wrds <- strsplit(demcell, "[ -]")[[1]]
+# wrds
 
-lstdat <- merge(adae, adsl, by = "USUBJID")
-var_labels(lstdat) <- c(var_labels(adae), var_labels(adsl)[-1])
-lstdat$demog <- with_label(paste(lstdat$RACE, lstdat$SEX, lstdat$AGE, sep = " / "), "Demographic Information")
+## ----eval=NOT_CRAN------------------------------------------------------------
+# max(nchar(wrds))
 
-lsting <- as_listing(lstdat,
-  key_cols = c("USUBJID"),
-  disp_cols = c("ACTARM", "COUNTRY", "demog", "AESEV", "AEBODSYS", "AEDECOD", "ASTDTM", "AENDTM", "AEOUT", "EOSSTT")
-)
+## ----eval=NOT_CRAN------------------------------------------------------------
+# packed_widths <- function(...) {
+#   lst <- list(...)
+#   nchar(vapply(lst, paste, collapse = " ", ""))
+# }
+# packed_widths(
+#   wrds[1:2],
+#   wrds[3],
+#   wrds[4],
+#   wrds[5:8]
+# )
 
-## -----------------------------------------------------------------------------
-demcell <- lstdat$demog[nrow(lstdat)]
-demcell
+## ----eval=NOT_CRAN------------------------------------------------------------
+# packed_widths(wrds[1:3], wrds[4], wrds[5:8])
 
-## -----------------------------------------------------------------------------
-wrds <- strsplit(demcell, "[ -]")[[1]]
-wrds
+## ----eval=NOT_CRAN------------------------------------------------------------
+# packed_widths(
+#   wrds[1:3],
+#   wrds[4:8]
+# )
 
-## -----------------------------------------------------------------------------
-max(nchar(wrds))
+## ----eval=NOT_CRAN------------------------------------------------------------
+# fspec_times8 <- font_spec("Times", 8, 1)
+# cw <- listing_column_widths(lsting, col_gap = 0, fontspec = fspec_times8, verbose = TRUE)
+# 
+# txt <- export_as_txt(lsting,
+#   pg_width = inches_to_spaces(8.88, fontspec = fspec_times8),
+#   lpp = NULL, colwidths = cw,
+#   fontspec = fspec_times8, col_gap = 0
+# )
+# 
+# txt2 <- strsplit(txt, "\n", fixed = FALSE)[[1]]
+# head(txt2)
+# length(txt2)
 
-## -----------------------------------------------------------------------------
-packed_widths <- function(...) {
-  lst <- list(...)
-  nchar(vapply(lst, paste, collapse = " ", ""))
-}
-packed_widths(
-  wrds[1:2],
-  wrds[3],
-  wrds[4],
-  wrds[5:8]
-)
+## ----eval=NOT_CRAN------------------------------------------------------------
+# txtbad <- export_as_txt(lsting,
+#   pg_width = inches_to_spaces(8.88, fontspec = fspec_times8),
+#   lpp = NULL, colwidths = rep(floor(320 / 11), 11),
+#   fontspec = fspec_times8, col_gap = 0
+# )
+# txt2bad <- strsplit(txtbad, "\n", fixed = TRUE)[[1]]
+# head(txt2bad)
+# length(txt2bad)
 
-## -----------------------------------------------------------------------------
-packed_widths(wrds[1:3], wrds[4], wrds[5:8])
-
-## -----------------------------------------------------------------------------
-packed_widths(
-  wrds[1:3],
-  wrds[4:8]
-)
-
-## -----------------------------------------------------------------------------
-fspec_times8 <- font_spec("Times", 8, 1)
-cw <- listing_column_widths(lsting, col_gap = 0, fontspec = fspec_times8, verbose = TRUE)
-
-txt <- export_as_txt(lsting,
-  pg_width = inches_to_spaces(8.88, fontspec = fspec_times8),
-  lpp = NULL, colwidths = cw,
-  fontspec = fspec_times8, col_gap = 0
-)
-
-txt2 <- strsplit(txt, "\n", fixed = FALSE)[[1]]
-head(txt2)
-length(txt2)
-
-## -----------------------------------------------------------------------------
-txtbad <- export_as_txt(lsting,
-  pg_width = inches_to_spaces(8.88, fontspec = fspec_times8),
-  lpp = NULL, colwidths = rep(floor(320 / 11), 11),
-  fontspec = fspec_times8, col_gap = 0
-)
-txt2bad <- strsplit(txtbad, "\n", fixed = TRUE)[[1]]
-head(txt2bad)
-length(txt2bad)
-
-## ----calc, include = FALSE----------------------------------------------------
-saved <- (length(txt2bad) - length(txt2)) / length(txt2bad) * 100
-dec_saved <- round(saved, 2)
+## ----calc, include = FALSE, eval=NOT_CRAN-------------------------------------
+# saved <- (length(txt2bad) - length(txt2)) / length(txt2bad) * 100
+# dec_saved <- round(saved, 2)
 

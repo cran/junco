@@ -13,19 +13,16 @@ library(junco)
 library(rlistings)
 library(tibble)
 
+NOT_CRAN <- identical(Sys.getenv("NOT_CRAN"), "true")
 
 ## ----setup-title, include=FALSE-----------------------------------------------
-#Need to set up a dummy tittle and main footer
 titles <- list(title = " ",
                      subtitles = NULL,
                      main_footer = "Dummy Note: On-treatment is defined as ~{optional treatment-emergent}")
-#Need tempdir
 out_dir <- file.path("..", "output")
 if(!dir.exists(out_dir)) {
   dir.create(out_dir)
 }
-
-NOT_CRAN <- !testthat:::on_cran()
 
 ## ----orientation_rtf----------------------------------------------------------
 library(junco)
@@ -126,8 +123,8 @@ result <- set_titles(result, titles)
 #                 output_dir = out_dir,
 #                 orientation = "landscape")
 
-## ----orientation_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "exampleorientation", orientation = "landscape")
+## ----orientation_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "exampleorientation", orientation = "landscape")
 
 ## ----fontsize_rtf-------------------------------------------------------------
 library(junco)
@@ -229,8 +226,8 @@ result <- set_titles(result, titles)
 #                 output_dir = out_dir,
 #                 theme = theme_docx_default_j(font = "Times New Roman", font_size = 8L))
 
-## ----fontsize_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplefontsize", fontspec = formatters::font_spec("Times", 8, 1.2))
+## ----fontsize_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplefontsize", fontspec = formatters::font_spec("Times", 8, 1.2))
 
 ## ----spanning_header_setup----------------------------------------------------
 library(junco)
@@ -425,8 +422,8 @@ result <- set_titles(result, titles)
 #              file = paste0(out_dir, "/examplespanningheader1"),
 #              orientation = "landscape")
 
-## ----spanning_header_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplespanningheader1", orientation = "landscape")
+## ----spanning_header_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplespanningheader1", orientation = "landscape")
 
 ## ----combined_column_setup----------------------------------------------------
 add_combo <- add_combo_facet("Combined",
@@ -560,8 +557,8 @@ result <- set_titles(result, titles)
 #              file = paste0(out_dir, "/examplecombinedcolumn1"),
 #              orientation = "landscape")
 
-## ----combined_column_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplecombinedcolumn1", orientation = "landscape")
+## ----combined_column_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplecombinedcolumn1", orientation = "landscape")
 
 ## ----improved_combined_column_setup, eval=FALSE-------------------------------
 #   # choose if any facets need to be removed - e.g remove the combined column for placebo
@@ -706,8 +703,8 @@ result <- set_titles(result, titles)
 #              file = paste0(out_dir, "/examplecombinedcolumn2"),
 #              orientation = "landscape")
 
-## ----improved_combined_column_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplecombinedcolumn2", orientation = "landscape")
+## ----improved_combined_column_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplecombinedcolumn2", orientation = "landscape")
 
 ## ----newline_data-------------------------------------------------------------
 adsl <- data.frame(TRT01A = c("Example Drug 5 mg",
@@ -810,9 +807,9 @@ result <- set_titles(result, titles)
 #                 orientation = "landscape",
 #                 string_map = string_map_newline)
 
-## ----newline_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "newlinetable", orientation = "landscape",
-                  string_map = string_map_newline)
+## ----newline_table_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "newlinetable", orientation = "landscape",
+#                   string_map = string_map_newline)
 
 ## ----newline_listing_rtf------------------------------------------------------
 library(junco)
@@ -885,9 +882,9 @@ result <- set_titles(result, titles)
 #                 orientation = "landscape",
 #                 string_map = string_map_newline)
 
-## ----newline_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplelistingnewline2", orientation = "landscape",
-                  string_map = string_map_newline)
+## ----newline_listing_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplelistingnewline2", orientation = "landscape",
+#                   string_map = string_map_newline)
 
 ## ----border_matrix------------------------------------------------------------
 library(junco)
@@ -934,8 +931,8 @@ result <- set_titles(result, titles)
 #              file = paste0(out_dir, "/bordertable"),
 #              orientation = "landscape")
 
-## ----border_matrix_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "bordertable", orientation = "landscape")
+## ----border_matrix_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "bordertable", orientation = "landscape")
 
 ## ----default_border_matrix----------------------------------------------------
 header_border <- junco:::make_header_bordmat(obj = result)
@@ -958,8 +955,8 @@ header_border
 #                 orientation = "landscape",
 #                 border_mat = header_border)
 
-## ----custom_border_matrix_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "custombordertable", orientation = "landscape", border_mat = header_border)
+## ----custom_border_matrix_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "custombordertable", orientation = "landscape", border_mat = header_border)
 
 ## ----default_markup_rtf-------------------------------------------------------
 library(tibble)
@@ -1093,8 +1090,8 @@ result <- set_titles(result, titles)
 #                 orientation = "landscape",
 #                 markup_df_docx = docx_markup_df)
 
-## ----superscript_table_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "superscripttable", orientation = "landscape",  markup_df_docx = docx_markup_df)
+## ----superscript_table_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "superscripttable", orientation = "landscape",  markup_df_docx = docx_markup_df)
 
 ## ----superscript_listing_rtf--------------------------------------------------
 library(junco)
@@ -1184,200 +1181,200 @@ result <- set_titles(result, titles)
 #                 orientation = "landscape",
 #                 markup_df_docx = docx_markup_df)
 
-## ----superscript_listing_rtf_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result, "examplelistingsuperscript2", orientation = "landscape",  markup_df_docx = docx_markup_df)
+## ----superscript_listing_rtf_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result, "examplelistingsuperscript2", orientation = "landscape",  markup_df_docx = docx_markup_df)
 
-## ----multiple_docs_data_prep--------------------------------------------------
-library(tern)
-library(dplyr)
-library(rtables)
-library(junco)
+## ----multiple_docs_data_prep, eval=NOT_CRAN-----------------------------------
+# library(tern)
+# library(dplyr)
+# library(rtables)
+# library(junco)
+# 
+# ################################################################################
+# # Define script level parameters:
+# ################################################################################
+# 
+# string_map <- default_str_map
+# trtvar <- "TRT01A"
+# popfl <- "SAFFL"
+# 
+# ################################################################################
+# # Process Data:
+# ################################################################################
+# 
+# adsl <- pharmaverseadamjnj::adsl %>%
+#   filter(!!rlang::sym(popfl) == "Y") %>%
+#   select(STUDYID, USUBJID, all_of(trtvar), all_of(popfl), RACE)
+# 
+# adae <- pharmaverseadamjnj::adae %>%
+#   filter(TRTEMFL == "Y" & AEBODSYS == "Skin and subcutaneous tissue disorders") %>%
+#   select(USUBJID, TRTEMFL, AEBODSYS, AEDECOD, RACE)
+# 
+# adsl$colspan_trt <- factor(ifelse(adsl[[trtvar]] == "Placebo", " ", "Active Study Agent"),
+#                            levels = c("Active Study Agent", " ")
+# )
+# 
+# colspan_trt_map <- create_colspan_map(adsl,
+#                                       non_active_grp = "Placebo",
+#                                       non_active_grp_span_lbl = " ",
+#                                       active_grp_span_lbl = "Active Study Agent",
+#                                       colspan_var = "colspan_trt",
+#                                       trt_var = trtvar
+# )
+# 
+# # Add total for Race - adsl
+# totalrace1 <- adsl %>%
+#   filter(RACE != "UNKNOWN" & !is.na(RACE)) %>%
+#   mutate(RACE = "Total")
+# 
+# adsl <- bind_rows(totalrace1, adsl)
+# 
+# adsl <- adsl %>%
+#   mutate(RACEcat = case_when(
+#     RACE == "Total" ~ "Total",
+#     RACE == "WHITE" ~ "White",
+#     RACE == "BLACK OR AFRICAN AMERICAN" ~ "Black",
+#     RACE == "ASIAN" ~ "Asian",
+#     RACE != "UNKNOWN" & !is.na(RACE) ~ "Other"
+#   )) %>%
+#   filter(RACEcat %in% c("Total", "White", "Black", "Asian", "Other")) %>%
+#   select(-RACE)
+# 
+# adsl$spanheader <- factor(ifelse(adsl$RACEcat == "Total", " ", "Race"),
+#                           levels = c(" ", "Race")
+# )
+# 
+# adsl$RACEcat <- factor(adsl$RACEcat, levels = c("Total", "White", "Black", "Asian", "Other"))
+# 
+# # Add total for Race - adae
+# totalrace2 <- adae %>%
+#   filter(RACE != "UNKNOWN" & !is.na(RACE)) %>%
+#   mutate(RACE = "Total")
+# 
+# adae <- bind_rows(totalrace2, adae)
+# 
+# adae <- adae %>%
+#   mutate(RACEcat = case_when(
+#     RACE == "Total" ~ "Total",
+#     RACE == "WHITE" ~ "White",
+#     RACE == "BLACK OR AFRICAN AMERICAN" ~ "Black",
+#     RACE == "ASIAN" ~ "Asian",
+#     RACE != "UNKNOWN" & !is.na(RACE) ~ "Other"
+#   )) %>%
+#   filter(RACEcat %in% c("Total", "White", "Black", "Asian", "Other")) %>%
+#   select(-RACE)
+# 
+# adae$RACEcat <- factor(adae$RACEcat, levels = c("Total", "White", "Black", "Asian", "Other"))
+# 
+# # join data together
+# ae <- left_join(adsl, adae, by = c("USUBJID", "RACEcat"))
+# 
+# ################################################################################
+# # Define layout and build table:
+# ################################################################################
+# 
+# extra_args_1 <- list(denom = "n_altdf",
+#                      .stats = c("count_unique_fraction")
+# )
+# 
+# 
+# extra_args_2 <- list(denom = "n_altdf",
+#                      .stats = c("count_unique")
+# )
+# 
+# 
+# 
+# lyt <- basic_table(
+#   top_level_section_div = " ",
+#   show_colcounts = FALSE
+# ) %>%
+#   split_cols_by("colspan_trt", split_fun = trim_levels_to_map(map = colspan_trt_map))
+# 
+# lyt <- lyt %>%
+#   split_cols_by(trtvar)
+# 
+# lyt <- lyt %>%
+#   split_cols_by("spanheader", split_fun = trim_levels_in_group("RACEcat")) %>%
+#   split_cols_by("RACEcat") %>%
+#   analyze(popfl,
+#           afun = a_freq_j,
+#           show_labels = "hidden",
+#           section_div = c(" "),
+#           extra_args = append(extra_args_2,
+#                               list(
+#                                 label = "Analysis set: Safety",
+#                                 val = "Y",
+#                                 section_div = c(" ")))
+#   ) %>%
+#   analyze("TRTEMFL",
+#           afun = a_freq_j,
+#           show_labels = "hidden",
+#           extra_args = append(extra_args_1,
+#                               list(label = "Subjects with >=1 AE",
+#                                    val = "Y",
+#                                    section_div = c(" ")))
+#   ) %>%
+#   split_rows_by("AEBODSYS",
+#                 split_label = "System Organ Class",
+#                 split_fun = trim_levels_in_group("AEDECOD"),
+#                 label_pos = "topleft",
+#                 section_div = c(" "),
+#                 nested = FALSE
+#   ) %>%
+#   summarize_row_groups("AEBODSYS",
+#                        cfun = a_freq_j,
+#                        extra_args = extra_args_1
+#   ) %>%
+#   analyze("AEDECOD",
+#           afun = a_freq_j,
+#           extra_args = extra_args_1
+#   ) %>%
+#   append_topleft("  Preferred Term, n (%)")
+# 
+# result <- build_table(lyt, ae, alt_counts_df = adsl)
+# result <- set_titles(result, titles)
+# #########################################################################################
+# # Post-Processing step to sort by descending count on chosen active treatment columns.
+# # For this table we can use a defined colpath so it takes the appropriate sub-column ("Total")
+# # for the last active treatment group/combined and use this for its sort order.
+# # If you only have 1 active treatment arm, consider using jj_complex_scorefun(spanningheadercolvar = NA, usefirstcol = TRUE)
+# # See function documentation for jj_complex_scorefun should your require a different sorting behavior.
+# #########################################################################################
+# 
+# # col_paths_summary(result)
+# 
+# if (length(adae$TRTEMFL) != 0) {
+#   result <- sort_at_path(result, c("root", "AEBODSYS"),
+#                          scorefun = jj_complex_scorefun(colpath = c("colspan_trt", "Active Study Agent", trtvar, "Xanomeline High Dose", "spanheader", " ", "RACEcat", "Total"))
+#   )
+#   result <- sort_at_path(result, c("root", "AEBODSYS", "*", "AEDECOD"),
+#                          scorefun = jj_complex_scorefun(colpath = c("colspan_trt", "Active Study Agent", trtvar, "Xanomeline High Dose", "spanheader", " ", "RACEcat", "Total"))
+#   )
+# }
 
-################################################################################
-# Define script level parameters:
-################################################################################
-
-string_map <- default_str_map
-trtvar <- "TRT01A"
-popfl <- "SAFFL"
-
-################################################################################
-# Process Data:
-################################################################################
-
-adsl <- pharmaverseadamjnj::adsl %>%
-  filter(!!rlang::sym(popfl) == "Y") %>%
-  select(STUDYID, USUBJID, all_of(trtvar), all_of(popfl), RACE)
-
-adae <- pharmaverseadamjnj::adae %>%
-  filter(TRTEMFL == "Y" & AEBODSYS == "Skin and subcutaneous tissue disorders") %>%
-  select(USUBJID, TRTEMFL, AEBODSYS, AEDECOD, RACE)
-
-adsl$colspan_trt <- factor(ifelse(adsl[[trtvar]] == "Placebo", " ", "Active Study Agent"),
-                           levels = c("Active Study Agent", " ")
-)
-
-colspan_trt_map <- create_colspan_map(adsl,
-                                      non_active_grp = "Placebo",
-                                      non_active_grp_span_lbl = " ",
-                                      active_grp_span_lbl = "Active Study Agent",
-                                      colspan_var = "colspan_trt",
-                                      trt_var = trtvar
-)
-
-# Add total for Race - adsl
-totalrace1 <- adsl %>%
-  filter(RACE != "UNKNOWN" & !is.na(RACE)) %>%
-  mutate(RACE = "Total")
-
-adsl <- bind_rows(totalrace1, adsl)
-
-adsl <- adsl %>%
-  mutate(RACEcat = case_when(
-    RACE == "Total" ~ "Total",
-    RACE == "WHITE" ~ "White",
-    RACE == "BLACK OR AFRICAN AMERICAN" ~ "Black",
-    RACE == "ASIAN" ~ "Asian",
-    RACE != "UNKNOWN" & !is.na(RACE) ~ "Other"
-  )) %>%
-  filter(RACEcat %in% c("Total", "White", "Black", "Asian", "Other")) %>%
-  select(-RACE)
-
-adsl$spanheader <- factor(ifelse(adsl$RACEcat == "Total", " ", "Race"),
-                          levels = c(" ", "Race")
-)
-
-adsl$RACEcat <- factor(adsl$RACEcat, levels = c("Total", "White", "Black", "Asian", "Other"))
-
-# Add total for Race - adae
-totalrace2 <- adae %>%
-  filter(RACE != "UNKNOWN" & !is.na(RACE)) %>%
-  mutate(RACE = "Total")
-
-adae <- bind_rows(totalrace2, adae)
-
-adae <- adae %>%
-  mutate(RACEcat = case_when(
-    RACE == "Total" ~ "Total",
-    RACE == "WHITE" ~ "White",
-    RACE == "BLACK OR AFRICAN AMERICAN" ~ "Black",
-    RACE == "ASIAN" ~ "Asian",
-    RACE != "UNKNOWN" & !is.na(RACE) ~ "Other"
-  )) %>%
-  filter(RACEcat %in% c("Total", "White", "Black", "Asian", "Other")) %>%
-  select(-RACE)
-
-adae$RACEcat <- factor(adae$RACEcat, levels = c("Total", "White", "Black", "Asian", "Other"))
-
-# join data together
-ae <- left_join(adsl, adae, by = c("USUBJID", "RACEcat"))
-
-################################################################################
-# Define layout and build table:
-################################################################################
-
-extra_args_1 <- list(denom = "n_altdf",
-                     .stats = c("count_unique_fraction")
-)
-
-
-extra_args_2 <- list(denom = "n_altdf",
-                     .stats = c("count_unique")
-)
-
-
-
-lyt <- basic_table(
-  top_level_section_div = " ",
-  show_colcounts = FALSE
-) %>%
-  split_cols_by("colspan_trt", split_fun = trim_levels_to_map(map = colspan_trt_map))
-
-lyt <- lyt %>%
-  split_cols_by(trtvar)
-
-lyt <- lyt %>%
-  split_cols_by("spanheader", split_fun = trim_levels_in_group("RACEcat")) %>%
-  split_cols_by("RACEcat") %>%
-  analyze(popfl,
-          afun = a_freq_j,
-          show_labels = "hidden",
-          section_div = c(" "),
-          extra_args = append(extra_args_2,
-                              list(
-                                label = "Analysis set: Safety",
-                                val = "Y",
-                                section_div = c(" ")))
-  ) %>%
-  analyze("TRTEMFL",
-          afun = a_freq_j,
-          show_labels = "hidden",
-          extra_args = append(extra_args_1,
-                              list(label = "Subjects with >=1 AE",
-                                   val = "Y",
-                                   section_div = c(" ")))
-  ) %>%
-  split_rows_by("AEBODSYS",
-                split_label = "System Organ Class",
-                split_fun = trim_levels_in_group("AEDECOD"),
-                label_pos = "topleft",
-                section_div = c(" "),
-                nested = FALSE
-  ) %>%
-  summarize_row_groups("AEBODSYS",
-                       cfun = a_freq_j,
-                       extra_args = extra_args_1
-  ) %>%
-  analyze("AEDECOD",
-          afun = a_freq_j,
-          extra_args = extra_args_1
-  ) %>%
-  append_topleft("  Preferred Term, n (%)")
-
-result <- build_table(lyt, ae, alt_counts_df = adsl)
-result <- set_titles(result, titles)
-#########################################################################################
-# Post-Processing step to sort by descending count on chosen active treatment columns.
-# For this table we can use a defined colpath so it takes the appropriate sub-column ("Total")
-# for the last active treatment group/combined and use this for its sort order.
-# If you only have 1 active treatment arm, consider using jj_complex_scorefun(spanningheadercolvar = NA, usefirstcol = TRUE)
-# See function documentation for jj_complex_scorefun should your require a different sorting behavior.
-#########################################################################################
-
-# col_paths_summary(result)
-
-if (length(adae$TRTEMFL) != 0) {
-  result <- sort_at_path(result, c("root", "AEBODSYS"),
-                         scorefun = jj_complex_scorefun(colpath = c("colspan_trt", "Active Study Agent", trtvar, "Xanomeline High Dose", "spanheader", " ", "RACEcat", "Total"))
-  )
-  result <- sort_at_path(result, c("root", "AEBODSYS", "*", "AEDECOD"),
-                         scorefun = jj_complex_scorefun(colpath = c("colspan_trt", "Active Study Agent", trtvar, "Xanomeline High Dose", "spanheader", " ", "RACEcat", "Total"))
-  )
-}
-
-## ----multiple_docs_table1-----------------------------------------------------
-################################################################################
-# Convert to tbl file and output table
-################################################################################
-
+## ----multiple_docs_table1, eval=NOT_CRAN--------------------------------------
+# ################################################################################
+# # Convert to tbl file and output table
+# ################################################################################
+# 
 
 ## ----multiple_docs_table1_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
 # tt_to_tlgrtf(string_map = string_map, tt = result,
 #              file = paste0(out_dir, "/aetablemultipledocs1"), orientation = "landscape"
 # )
 
-## ----multiple_docs_table1_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs1", orientation = "landscape", paginate= TRUE)
-x[[1]]
-knitr::asis_output("<br><br>")
-x[[2]]
-knitr::asis_output("<br><br>")
+## ----multiple_docs_table1_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs1", orientation = "landscape", paginate= TRUE)
+# x[[1]]
+# knitr::asis_output("<br><br>")
+# x[[2]]
+# knitr::asis_output("<br><br>")
 
-## ----multiple_docs_table2-----------------------------------------------------
-################################################################################
-# Convert to tbl file and output table
-################################################################################
-
+## ----multiple_docs_table2, eval=NOT_CRAN--------------------------------------
+# ################################################################################
+# # Convert to tbl file and output table
+# ################################################################################
+# 
 
 ## ----multiple_docs_table2_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
 # tt_to_tlgrtf(string_map = string_map, tt = result,
@@ -1385,16 +1382,15 @@ knitr::asis_output("<br><br>")
 #              nosplitin = list(cols = c(trtvar))
 # )
 
-## ----multiple_docs_table2_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs2", orientation = "landscape",
-                  nosplitin = list(cols = c(trtvar)), paginate= TRUE)
-x[[1]]
-knitr::asis_output("<br><br>")
-x[[2]]
-knitr::asis_output("<br><br>")
-x[[3]]
-knitr::asis_output("<br><br>")
-
+## ----multiple_docs_table2_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs2", orientation = "landscape",
+#                   nosplitin = list(cols = c(trtvar)), paginate= TRUE)
+# 
+# 
+# invisible(lapply(seq_along(x), function(i) {
+#   print(x[[i]])
+#   knitr::asis_output("<br><br>")
+# }))
 
 ## ----multiple_docs_table3_export, eval=NOT_CRAN, message=FALSE, warning=FALSE----
 # tt_to_tlgrtf(string_map = string_map, tt = result,
@@ -1403,15 +1399,14 @@ knitr::asis_output("<br><br>")
 #              combined_rtf = TRUE
 # )
 
-## ----multiple_docs_table3_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs3", orientation = "landscape",
-                  nosplitin = list(cols = c(trtvar)), combined_rtf = TRUE, paginate = TRUE)
-x[[1]]
-knitr::asis_output("<br><br>")
-x[[2]]
-knitr::asis_output("<br><br>")
-x[[3]]
-knitr::asis_output("<br><br>")
+## ----multiple_docs_table3_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# x <- tt_to_flextable_j(string_map = string_map, tt = result, "aetablemultipledocs3", orientation = "landscape",
+#                   nosplitin = list(cols = c(trtvar)), combined_rtf = TRUE, paginate = TRUE)
+# 
+# invisible(lapply(seq_along(x), function(i) {
+#   print(x[[i]])
+#   knitr::asis_output("<br><br>")
+# }))
 
 ## ----page_break_table---------------------------------------------------------
 library(junco)
@@ -1505,15 +1500,15 @@ result <- set_titles(result, titles)
 # tt_to_tlgrtf(result,
 #              file = paste0(out_dir, "/examplepagebreak"))
 
-## ----page_break_table_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-male <- result[1:5, keep_titles = TRUE, keep_footers = FALSE]
-tt_to_flextable_j(male, "examplepagebreak")
-knitr::asis_output("<br><br>")
+## ----page_break_table_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# male <- result[1:5, keep_titles = TRUE, keep_footers = FALSE]
+# tt_to_flextable_j(male, "examplepagebreak")
+# knitr::asis_output("<br><br>")
 
-## ----page_break_table_display_part2, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-
-female <- result[6:10, keep_titles = TRUE, keep_footers = TRUE]
-tt_to_flextable_j(female, "examplepagebreak")
+## ----page_break_table_display_part2, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# 
+# female <- result[6:10, keep_titles = TRUE, keep_footers = TRUE]
+# tt_to_flextable_j(female, "examplepagebreak")
 
 ## ----split_listing_part1------------------------------------------------------
 library(junco)
@@ -1561,9 +1556,9 @@ result1 <- result[keep, ]
 #   orientation = "landscape"
 # )
 
-## ----split_listing_part1_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result1, "examplelistingmultiplefilesPART1OF2",
-  orientation = "landscape")
+## ----split_listing_part1_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result1, "examplelistingmultiplefilesPART1OF2",
+#   orientation = "landscape")
 
 ## ----split_listing_part2------------------------------------------------------
 
@@ -1585,7 +1580,7 @@ result2 <- result[keep, ]
 #   orientation = "landscape"
 # )
 
-## ----split_listing_part2_display, echo=FALSE, fig.align="center", out.width="100%", out.height="200px"----
-tt_to_flextable_j(result2, "examplelistingmultiplefilesPART2OF2",
-  orientation = "landscape")
+## ----split_listing_part2_display, echo=FALSE, eval=NOT_CRAN, fig.align="center", out.width="100%", out.height="200px"----
+# tt_to_flextable_j(result2, "examplelistingmultiplefilesPART2OF2",
+#   orientation = "landscape")
 

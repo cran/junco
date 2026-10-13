@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
 library(junco)
 adsl <- create_colspan_var(pharmaverseadamjnj::adsl)
 adae <- create_colspan_var(pharmaverseadamjnj::adae)
+adlb <- create_colspan_var(pharmaverseadamjnj::adlb)
 trt_map <- create_colspan_map(adsl)
 print(trt_map)
 
@@ -84,4 +85,46 @@ lyt6 <- basic_table() |>
   grouped_cols_w_diffs(trt_map, comp_map = comp_map2)
 
 build_table(lyt6, adsl)
+
+
+## -----------------------------------------------------------------------------
+lyt_subgrp <- basic_table() |>
+  grouped_cols_w_subgrps(trt_map, subgrp_var = "SEX")
+
+
+build_table(lyt_subgrp, adsl)
+
+## -----------------------------------------------------------------------------
+lyt_subgrp2 <- basic_table() |>
+  grouped_cols_w_subgrps(trtvar = "TRT01A", subgrp_var = "SEX")
+
+
+build_table(lyt_subgrp2, adsl)
+
+## -----------------------------------------------------------------------------
+lyt_ageqrtls <- basic_table() |>
+    grouped_cols_w_subgrps(colspan_trt_map = trt_map,
+                           subgrp_var = "AGEGR1",
+                           subgrp_lbl = "Age Quartiles",
+                           total_facet = FALSE)
+
+
+build_table(lyt_ageqrtls, adsl)
+
+## -----------------------------------------------------------------------------
+param <- levels(adlb$PARAMCD)[1]
+lyt_shift <- basic_table() |>
+  shift_tbl_col_struct(var = "BNRIND",
+                       span_lbl = paste("Baseline", param))
+
+build_table(lyt_shift, adlb)
+
+## -----------------------------------------------------------------------------
+lyt <- basic_table() |>
+    some_v_all_col_struct(trt_map,
+                          subgrp_var = "AETOXGR",
+                          subgrp_lvls = c("4", "5"),
+                          all_lbl = "All Grades",
+                          subgrp_lbl = "High Toxicity")
+build_table(lyt, adae)
 
